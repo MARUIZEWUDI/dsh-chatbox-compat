@@ -1,0 +1,113 @@
+name: 问题反馈 / Bug report
+description: 插件不工作、按钮消失、报错等。请先读 README 的「兼容性」一节。
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交前请确认
+
+        1. 已**完全重启** DSH Desktop（不是只刷新窗口）
+        2. 读过了 README 的 [兼容性](https://github.com/MARUIZEWUDI/dsh-chatbox-compat#兼容性) 一节
+        3. 你的 DSH 版本在 `>=0.2.0 <0.3.0` 范围内
+
+        版本不在范围内的问题也会看，但不保证能修。
+
+  - type: input
+    id: harness-version
+    attributes:
+      label: DeepSeek Harness 版本
+      description: 设置 → 关于，或 `.desktop-install-state.json` 里的 harnessVersion
+      placeholder: "0.2.1-rc.2"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: dsh-chatbox-compat 版本
+      description: Release 版本号，或 package.json 里的 version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Linux
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 哪个部分出问题
+      options:
+        - 记忆面板 / memory_* 工具
+        - 模式面板（开关 / 对话-工作切换）
+        - 压缩对话（打包到新对话）
+        - 温度显示
+        - 知识库 / kb_* 工具
+        - 安装 / 卸载脚本
+        - 安装后 DSH 起不来
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 越具体越好，第几步、点了什么
+      placeholder: |
+        1. 打开「⚙ 工作模式」
+        2. 点「记忆」
+        3. …
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望 / 实际
+      placeholder: |
+        期望：看到 12 条记忆
+        实际：面板一片空白
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志
+      description: 运行下面两行，把输出贴进来
+      placeholder: |
+        Get-Content "$env:APPDATA\dsh-desktop\harness\.desktop-install-state.json"
+        Get-Content "$env:APPDATA\dsh-desktop\logs\harness.log" -Tail 80
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 截图 / 其他信息
+      description: 面板截图、端口占用情况、是否改过 cordis.patch.yml
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我已完全重启 DSH Desktop
+          required: true
+        - label: 我贴的日志里没有 API key、token 或隐私路径
+          required: true
