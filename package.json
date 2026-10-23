@@ -1,0 +1,45 @@
+{
+  "name": "dsh-chatbox-compat",
+  "version": "0.1.0",
+  "description": "Chatbox-style UX for DeepSeek Harness: visible long-term memory, a mode panel with real toggles, and one-click conversation compression into a new chat.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "chatbox",
+    "memory",
+    "mcp"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "install.ps1",
+    "uninstall.ps1",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-renderer"
+      ],
+      "platform": "web"
+    },
+    "compat": {
+      "harness": ">=0.2.0 <0.3.0",
+      "note": "Built and tested against DSH Desktop 0.2.1-rc.2. Slot names and tool contracts are internal APIs and may change between minor versions."
+    }
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
