@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 先读兼容性说明（版本不对多半是白忙）
+    url: https://github.com/MARUIZEWUDI/dsh-chatbox-compat#兼容性
+    about: 只测过 DSH Desktop 0.2.1-rc.2，0.1.x / 0.3.x 的 slot 改名会让按钮消失。
+  - name: 安装说明
+    url: https://github.com/MARUIZEWUDI/dsh-chatbox-compat#安装
+    about: DSH Desktop 没有 dsh plugin CLI，需要用 install.ps1。
