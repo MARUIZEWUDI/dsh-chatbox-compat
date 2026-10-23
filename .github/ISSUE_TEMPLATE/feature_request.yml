@@ -1,0 +1,48 @@
+name: 功能建议 / Feature request
+description: 想要某个 Chatbox 里有、但这里还没有的能力。
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这个插件的定位是**迁移适配**：只补 Chatbox / Cherry Studio 用户换到 DSH 后会明显不习惯的东西。
+        如果你要的是「让 agent 更能干活」的能力（计费、诊断、集成），社区里已经有别的插件做得更好。
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 你想要什么
+      placeholder: 一句话说清楚
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: 它在 Chatbox 里长什么样 / 为什么需要
+      description: 如果能贴 Chatbox 的截图最好
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 属于哪一类
+      options:
+        - 记忆
+        - 模式面板 / 开关
+        - 对话压缩 / 迁移
+        - 温度 / 系统状态
+        - 知识库
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: alt
+    attributes:
+      label: 你现在的替代做法
+      description: 现在你是怎么绕过这个缺口的？
+    validations:
+      required: false
