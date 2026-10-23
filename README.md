@@ -1,5 +1,7 @@
 # dsh-chatbox-compat
 
+**简体中文** · [English](README.en.md)
+
 **给从 Chatbox / Cherry Studio 迁到 DeepSeek Harness 的人，补回三样东西。**
 
 Chatbox 用户换到 DSH 之后，最不习惯的通常是这三件事：
@@ -10,8 +12,9 @@ Chatbox 用户换到 DSH 之后，最不习惯的通常是这三件事：
 
 这个插件把这三件事按 Chatbox 的交互补回来。
 
-> Status: **0.1.0 · Windows 优先 · 适配 DSH Desktop 0.2.x**
-> 用到的是 DSH 的内部插件契约（slot / tool / session log），不是稳定的公开 API，跨小版本可能需要适配。
+> **状态：0.1.0 · 优先支持 Windows · 针对 DSH Desktop 0.2.x 编写**
+> 用到的是 DSH 的内部插件契约（slot / tool 注册 / 会话日志），不是稳定的公开 API。
+> `rc` 版本之间随时可能失效，详见 [兼容性](#兼容性)。
 
 ---
 
@@ -67,6 +70,33 @@ powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
 | `DSH_KB_DIR` | `%USERPROFILE%\kb` | 知识库默认根目录 |
 | `DSH_HANDOFF_MODEL` | `deepseek-chat` | 压缩用的模型 |
 | `DSH_HANDOFF_ENDPOINT` | `https://api.deepseek.com/chat/completions` | 压缩用的接口（可指向自建/代理） |
+
+## 兼容性
+
+| 项 | 值 |
+|---|---|
+| 实测环境 | **DSH Desktop `0.2.1-rc.2`**（Windows 11） |
+| 声明范围 | `>=0.2.0 <0.3.0` |
+| 未验证 | `0.1.x`、`0.3.x`、macOS、Linux |
+
+**为什么这条很重要。** 除了 HTTP 接口，这里几乎所有东西都踩在 DSH 的内部实现上：
+
+- UI 槽位 `conversation.input.dock` —— 改名后按钮会**静默消失**
+- 工具契约 `ctx.tools.register`（`output.schema` / `output.render`）
+- 提示注入 `ctx.systemPrompt.variable` / `.section`
+- 会话日志格式 `session.v4.jsonl.zstd`（**多帧 zstd**）
+
+任何一个 `rc` 都可能改动其中一项。更新 DSH 之后如果面板或按钮不见了，先查这里。
+
+**怎么查自己的版本**：DSH Desktop → 设置 → 关于；或读
+`%APPDATA%\dsh-desktop\harness\.desktop-install-state.json` 里的 `harnessVersion`。
+
+**提交 issue 前**，请附上这两段输出：
+
+```powershell
+Get-Content "$env:APPDATA\dsh-desktop\harness\.desktop-install-state.json"
+Get-Content "$env:APPDATA\dsh-desktop\logs\harness.log" -Tail 80
+```
 
 ## 已知限制
 
